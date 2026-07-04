@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search Users</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #0b1a3a, #2b1055);
+            color: white;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 80px auto;
+            padding: 40px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        form {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        input[type="text"] {
+            width: 60%;
+            padding: 12px;
+            border-radius: 10px;
+            border: none;
+            outline: none;
+        }
+
+        button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 10px;
+            background: #22c55e;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #16a34a;
+        }
+
+        .user-card {
+            background: rgba(255,255,255,0.08);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+
+        .user-card h2 {
+            color: #4cc9f0;
+            margin-top: 0;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 18px;
+            margin-top: 10px;
+            margin-right: 10px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .profile-btn {
+            background: #2563eb;
+        }
+
+        .profile-btn:hover {
+            background: #1d4ed8;
+        }
+
+        .request-btn {
+            background: #22c55e;
+        }
+
+        .request-btn:hover {
+            background: #16a34a;
+        }
+
+        hr {
+            border: none;
+            height: 1px;
+            background: rgba(255,255,255,0.1);
+        }
+
+        .back {
+            display: inline-block;
+            margin-top: 20px;
+            color: #93c5fd;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .back:hover {
+            color: white;
+        }
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>🔍 Search Users by Skill</h1>
+
+    <form method="GET">
+
+        <input
+            type="text"
+            name="q"
+            placeholder="Enter a skill..."
+            value="{{ query }}"
+        >
+
+        <button type="submit">
+            Search
+        </button>
+
+    </form>
+
+    <hr><br>
+
+    {% if users %}
+
+        {% for user in users %}
+
+            <div class="user-card">
+
+                <h2>{{ user.full_name }}</h2>
+
+                <p><strong>Skills Offered:</strong> {{ user.skills_offered }}</p>
+
+                <p><strong>Skills Wanted:</strong> {{ user.skills_wanted }}</p>
+
+                <p><strong>Experience:</strong> {{ user.experience }}</p>
+
+                <p><strong>Language:</strong> {{ user.language }}</p>
+
+                <p><strong>Location:</strong> {{ user.location }}</p>
+
+                <p><strong>Learning Mode:</strong> {{ user.learning_mode }}</p>
+
+                <a href="{% url 'user_profile' user.id %}" class="btn profile-btn">
+                    👤 View Profile
+                </a>
+
+                <a href="{% url 'send_request' user.id %}" class="btn request-btn">
+                    📩 Send Request
+                </a>
+
+            </div>
+
+        {% endfor %}
+
+    {% elif query %}
+
+        <h3>No users found for "{{ query }}"</h3>
+
+    {% else %}
+
+        <h3>Search for a skill to find users.</h3>
+
+    {% endif %}
+
+    <br>
+
+    <a href="{% url 'dashboard' %}" class="back">
+        ← Back to Dashboard
+    </a>
+
+</div>
+
+</body>
+</html>

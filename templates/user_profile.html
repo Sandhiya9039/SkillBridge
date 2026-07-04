@@ -1,0 +1,111 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>{{ profile.full_name }} | SkillBridge</title>
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="card">
+
+        <div style="text-align:center;">
+
+            {% if profile.profile_picture %}
+
+                <img src="{{ profile.profile_picture.url }}"
+                     style="width:150px;
+                            height:150px;
+                            border-radius:50%;
+                            object-fit:cover;
+                            border:4px solid #00ffcc;">
+
+            {% else %}
+
+                <img src="{% static 'images/default_profile.png' %}"
+                     style="width:150px;
+                            height:150px;
+                            border-radius:50%;
+                            border:4px solid #00ffcc;">
+
+            {% endif %}
+
+            <h1>{{ profile.full_name }}</h1>
+
+            <p>{{ profile.bio }}</p>
+
+        </div>
+
+        <hr>
+
+        <h2>⭐ Rating</h2>
+
+        <p>
+
+            <strong>{{ average_rating }}/5</strong>
+
+            ({{ total_reviews }} Reviews)
+
+        </p>
+
+        <hr>
+
+        <h2>🎯 Skills Offered</h2>
+
+        <p>{{ profile.skills_offered }}</p>
+
+        <h2>📚 Skills Wanted</h2>
+
+        <p>{{ profile.skills_wanted }}</p>
+
+        <hr>
+
+        <h2>👨‍💻 Experience</h2>
+
+        <p>{{ profile.experience }}</p>
+
+        <h2>🌍 Language</h2>
+
+        <p>{{ profile.language }}</p>
+
+        <h2>📍 Location</h2>
+
+        <p>{{ profile.location }}</p>
+
+        <h2>💻 Learning Mode</h2>
+
+        <p>{{ profile.learning_mode }}</p>
+
+        <hr>
+
+        <a href="{% url 'send_request' profile.id %}" class="btn">
+            📩 Send Request
+        </a>
+
+        <a href="{% url 'chat' profile.id %}" class="btn">
+            💬 Chat
+        </a>
+
+        <a href="{% url 'view_reviews' profile.id %}" class="btn">
+            ⭐ View Reviews
+        </a>
+
+        <a href="{% url 'dashboard' %}" class="btn">
+            🏠 Dashboard
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

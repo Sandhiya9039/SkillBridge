@@ -1,0 +1,152 @@
+/* Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+    min-height:100vh;
+    color:white;
+}
+
+.container{
+    width:90%;
+    max-width:1200px;
+    margin:auto;
+    padding:30px;
+}
+
+.card{
+    background:rgba(255,255,255,0.08);
+    backdrop-filter:blur(15px);
+    border-radius:20px;
+    padding:25px;
+    margin:20px 0;
+    border:1px solid rgba(255,255,255,0.2);
+    box-shadow:0 10px 30px rgba(0,0,0,.3);
+}
+
+h1,h2,h3{
+    color:#00ffe7;
+    margin-bottom:15px;
+}
+
+p{
+    margin:10px 0;
+    line-height:1.6;
+}
+
+input,
+textarea,
+select{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    margin-top:8px;
+    margin-bottom:18px;
+    background:rgba(255,255,255,.12);
+    color:white;
+}
+
+input::placeholder,
+textarea::placeholder{
+    color:#ddd;
+}
+
+button,
+.btn{
+    background:#00e5ff;
+    color:#000;
+    padding:12px 24px;
+    border:none;
+    border-radius:10px;
+    text-decoration:none;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.3s;
+}
+
+button:hover,
+.btn:hover{
+    background:#00ffd5;
+    transform:scale(1.05);
+}
+
+a{
+    color:#00ffe7;
+    text-decoration:none;
+}
+
+a:hover{
+    color:white;
+}
+
+.navbar{
+    background:rgba(0,0,0,.3);
+    backdrop-filter:blur(20px);
+    padding:18px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.nav-links a{
+    margin-left:20px;
+}
+
+.profile-img{
+    width:130px;
+    height:130px;
+    border-radius:50%;
+    object-fit:cover;
+    border:4px solid #00ffe7;
+}
+
+.chat-box{
+    height:400px;
+    overflow-y:auto;
+    background:rgba(0,0,0,.25);
+    padding:20px;
+    border-radius:15px;
+}
+
+.sent{
+    text-align:right;
+    margin:10px;
+}
+
+.received{
+    text-align:left;
+    margin:10px;
+}
+
+.message{
+    display:inline-block;
+    padding:10px 18px;
+    border-radius:15px;
+    max-width:70%;
+}
+
+.sent .message{
+    background:#00e5ff;
+    color:black;
+}
+
+.received .message{
+    background:#444;
+    color:white;
+}
+
+.notification{
+    background:red;
+    color:white;
+    border-radius:50%;
+    padding:4px 10px;
+    font-size:13px;
+}

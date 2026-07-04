@@ -1,0 +1,121 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Find Skill Matches | SkillBridge</title>
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>🤝 Find Skill Partners</h1>
+
+    {% if matches %}
+
+        {% for person in matches %}
+
+        <div class="card">
+
+            <div style="text-align:center;">
+
+                {% if person.profile_picture %}
+                    <img src="{{ person.profile_picture.url }}"
+                         style="width:120px;
+                                height:120px;
+                                border-radius:50%;
+                                border:3px solid #00ffcc;
+                                object-fit:cover;">
+                {% else %}
+                    <img src="{% static 'images/default_profile.png' %}"
+                         style="width:120px;
+                                height:120px;
+                                border-radius:50%;
+                                border:3px solid #00ffcc;">
+                {% endif %}
+
+                <h2>{{ person.full_name }}</h2>
+
+            </div>
+
+            <hr>
+
+            <p><strong>🎯 Skills Offered</strong></p>
+
+            <p>{{ person.skills_offered }}</p>
+
+            <p><strong>📚 Skills Wanted</strong></p>
+
+            <p>{{ person.skills_wanted }}</p>
+
+            <p><strong>⭐ Experience</strong></p>
+
+            <p>{{ person.experience }}</p>
+
+            <p><strong>🌍 Language</strong></p>
+
+            <p>{{ person.language }}</p>
+
+            <p><strong>📍 Location</strong></p>
+
+            <p>{{ person.location }}</p>
+
+            <p><strong>💻 Learning Mode</strong></p>
+
+            <p>{{ person.learning_mode }}</p>
+
+            <br>
+
+            <a href="{% url 'send_request' person.id %}" class="btn">
+                📩 Send Request
+            </a>
+
+            <a href="{% url 'chat' person.id %}" class="btn">
+                💬 Chat
+            </a>
+
+            <a href="{% url 'leave_review' person.id %}" class="btn">
+                ⭐ Review
+            </a>
+
+            <a href="{% url 'view_reviews' person.id %}" class="btn">
+                👀 View Reviews
+            </a>
+
+        </div>
+
+        <br>
+
+        {% endfor %}
+
+    {% else %}
+
+        <div class="card">
+
+            <h2>No matching users found.</h2>
+
+            <p>Try updating your skills or search for another skill.</p>
+
+        </div>
+
+    {% endif %}
+
+    <br>
+
+    <a href="{% url 'dashboard' %}" class="btn">
+        ⬅ Back to Dashboard
+    </a>
+    
+<br><br>
+
+</div>
+
+</body>
+
+</html>

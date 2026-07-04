@@ -1,0 +1,161 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Chat | SkillBridge</title>
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="card">
+
+        <div style="text-align:center;">
+
+            {% if receiver.profile_picture %}
+                <img src="{{ receiver.profile_picture.url }}"
+                     style="width:90px;
+                            height:90px;
+                            border-radius:50%;
+                            border:3px solid #00ffcc;
+                            object-fit:cover;">
+            {% else %}
+                <img src="{% static 'images/default_profile.png' %}"
+                     style="width:90px;
+                            height:90px;
+                            border-radius:50%;
+                            border:3px solid #00ffcc;">
+            {% endif %}
+
+            <h2>💬 Chat with {{ receiver.full_name }}</h2>
+
+        </div>
+
+        <hr>
+
+        <div style="max-height:400px;
+                    overflow-y:auto;
+                    padding:15px;
+                    border:1px solid #00ffcc;
+                    border-radius:10px;
+                    background:#111827;">
+
+            {% for msg in messages %}
+
+                {% if msg.sender.user == request.user %}
+
+                    <div style="text-align:right;margin-bottom:15px;">
+
+                        <span style="
+                            display:inline-block;
+                            background:#00ffcc;
+                            color:black;
+                            padding:12px;
+                            border-radius:15px;
+                            max-width:70%;
+                        ">
+
+                            {{ msg.message }}
+
+                            <br>
+
+                            <small>
+
+                                {{ msg.timestamp|date:"d M Y H:i" }}
+
+                            </small>
+
+                        </span>
+
+                    </div>
+
+                {% else %}
+
+                    <div style="text-align:left;margin-bottom:15px;">
+
+                        <span style="
+                            display:inline-block;
+                            background:#333;
+                            color:white;
+                            padding:12px;
+                            border-radius:15px;
+                            max-width:70%;
+                        ">
+
+                            {{ msg.message }}
+
+                            <br>
+
+                            <small>
+
+                                {{ msg.timestamp|date:"d M Y H:i" }}
+
+                            </small>
+
+                        </span>
+
+                    </div>
+
+                {% endif %}
+
+            {% empty %}
+
+                <p style="text-align:center;">
+                    No messages yet.
+                </p>
+
+            {% endfor %}
+
+        </div>
+
+        <br>
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            <input
+                type="text"
+                name="message"
+                placeholder="Type your message..."
+                required
+                style="width:80%;padding:12px;"
+            >
+
+            <button
+                type="submit"
+                class="btn"
+            >
+                📤 Send
+            </button>
+
+        </form>
+
+        <br>
+
+        <a href="{% url 'leave_review' receiver.id %}" class="btn">
+            ⭐ Leave Review
+        </a>
+
+        <a href="{% url 'view_reviews' receiver.id %}" class="btn">
+            🌟 View Reviews
+        </a>
+
+        <a href="{% url 'dashboard' %}" class="btn">
+            🏠 Dashboard
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,97 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>Received Requests | SkillBridge</title>
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="card">
+
+        <h1>📩 Skill Exchange Requests</h1>
+
+        {% if requests %}
+
+            {% for req in requests %}
+
+                <div class="card" style="margin-bottom:20px;">
+
+                    <h2>{{ req.sender.full_name }}</h2>
+
+                    <p><strong>Skills Offered:</strong> {{ req.sender.skills_offered }}</p>
+
+                    <p><strong>Skills Wanted:</strong> {{ req.sender.skills_wanted }}</p>
+
+                    <p><strong>Experience:</strong> {{ req.sender.experience }}</p>
+
+                    <p><strong>Location:</strong> {{ req.sender.location }}</p>
+
+                    <p><strong>Status:</strong> {{ req.status }}</p>
+
+                    <br>
+
+                    <a href="{% url 'user_profile' req.sender.id %}" class="btn">
+                        👤 View Profile
+                    </a>
+
+                    {% if req.status == "Pending" %}
+
+                        <a href="{% url 'accept_request' req.id %}" class="btn">
+                            ✅ Accept
+                        </a>
+
+                        <a href="{% url 'reject_request' req.id %}" class="btn" style="background:#dc2626;">
+                            ❌ Reject
+                        </a>
+
+                    {% elif req.status == "Accepted" %}
+
+                        <a href="{% url 'chat' req.sender.id %}" class="btn">
+                            💬 Chat
+                        </a>
+
+                    {% endif %}
+
+                </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <div class="card">
+
+                <h2>No Requests Yet 📭</h2>
+
+                <p>
+                    When another user sends you a skill exchange request,
+                    it will appear here.
+                </p>
+
+            </div>
+
+        {% endif %}
+
+        <br>
+
+        <a href="{% url 'dashboard' %}" class="btn">
+            🏠 Back to Dashboard
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

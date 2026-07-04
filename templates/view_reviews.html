@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Reviews</title>
+</head>
+<body>
+
+<h1>{{ profile.full_name }}'s Reviews</h1>
+
+{% if average_rating %}
+<h2>
+Average Rating:
+{{ average_rating|floatformat:1 }} ⭐
+</h2>
+{% else %}
+<h2>No ratings yet.</h2>
+{% endif %}
+
+<hr>
+
+{% if reviews %}
+
+    {% for review in reviews %}
+
+        <h3>{{ review.reviewer.full_name }}</h3>
+
+        <p>
+            Rating:
+            {{ review.rating }}/5 ⭐
+        </p>
+
+        <p>
+            {{ review.review }}
+        </p>
+
+        <small>
+            {{ review.created_at }}
+        </small>
+
+        <hr>
+
+    {% endfor %}
+
+{% else %}
+
+<p>No reviews available.</p>
+
+{% endif %}
+
+<br>
+
+<a href="{% url 'dashboard' %}">
+Back to Dashboard
+</a>
+
+</body>
+</html>

@@ -1,0 +1,110 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Dashboard | SkillBridge</title>
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>SkillBridge Dashboard</h1>
+
+    <div class="card" style="text-align:center;">
+
+        {% if profile.profile_picture %}
+            <img src="{{ profile.profile_picture.url }}"
+                 alt="Profile Picture"
+                 style="width:150px;
+                        height:150px;
+                        border-radius:50%;
+                        border:4px solid #00ffcc;
+                        object-fit:cover;
+                        margin-bottom:15px;">
+        {% else %}
+            <img src="{% static 'images/default_profile.png' %}"
+                 alt="Default Profile"
+                 style="width:150px;
+                        height:150px;
+                        border-radius:50%;
+                        border:4px solid #00ffcc;
+                        object-fit:cover;
+                        margin-bottom:15px;">
+        {% endif %}
+
+        <h2>👋 Welcome {{ profile.full_name }}</h2>
+
+        <p><strong>Username:</strong> {{ request.user.username }}</p>
+
+        <p>{{ profile.bio }}</p>
+
+    </div>
+
+    <div class="card">
+
+        <h2>🔔 Notifications</h2>
+
+        {% if unread_count > 0 %}
+
+            <p>
+
+                You have
+
+                <span class="badge">
+
+                    {{ unread_count }}
+
+                </span>
+
+                unread message{{ unread_count|pluralize }}.
+
+            </p>
+
+        {% else %}
+
+            <p>✅ No new messages.</p>
+
+        {% endif %}
+
+    </div>
+
+    <div class="card">
+
+        <h2>Quick Actions</h2>
+
+        <br>
+
+        <a href="{% url 'create_profile' %}" class="btn">
+            👤 Edit Profile
+        </a>
+
+        <a href="{% url 'matches' %}" class="btn">
+            🤝 Find Matches
+        </a>
+
+        <a href="{% url 'search_users' %}" class="btn">
+            🔍 Search Users
+        </a>
+
+        <a href="{% url 'received_requests' %}" class="btn">
+            📩 Requests
+        </a>
+
+        <a href="{% url 'logout' %}" class="btn">
+            🚪 Logout
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>
