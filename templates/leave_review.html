@@ -1,28 +1,143 @@
+{% load static %}
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <title>Leave Review</title>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Leave Review | SkillBridge</title>
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <style>
+
+        body{
+            margin:0;
+            padding:0;
+            font-family:Arial,Helvetica,sans-serif;
+            background:linear-gradient(135deg,#0b1f4d,#4b0082);
+            min-height:100vh;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+        }
+
+        .review-card{
+            width:500px;
+            max-width:90%;
+            background:rgba(255,255,255,0.08);
+            backdrop-filter:blur(12px);
+            border-radius:20px;
+            padding:35px;
+            box-shadow:0 8px 30px rgba(0,0,0,.4);
+            color:white;
+        }
+
+        h1{
+            text-align:center;
+            margin-bottom:10px;
+        }
+
+        .subtitle{
+            text-align:center;
+            color:#cbd5e1;
+            margin-bottom:30px;
+        }
+
+        label{
+            display:block;
+            margin-top:15px;
+            margin-bottom:8px;
+            font-weight:bold;
+        }
+
+        select,
+        textarea,
+        input{
+            width:100%;
+            padding:12px;
+            border:none;
+            border-radius:10px;
+            font-size:15px;
+            margin-bottom:15px;
+            box-sizing:border-box;
+        }
+
+        textarea{
+            resize:none;
+        }
+
+        .btn{
+            width:100%;
+            padding:14px;
+            background:#2563eb;
+            color:white;
+            border:none;
+            border-radius:10px;
+            font-size:16px;
+            cursor:pointer;
+            transition:.3s;
+        }
+
+        .btn:hover{
+            background:#1d4ed8;
+        }
+
+        .back{
+            display:block;
+            text-align:center;
+            margin-top:20px;
+            color:#93c5fd;
+            text-decoration:none;
+            font-weight:bold;
+        }
+
+        .back:hover{
+            color:white;
+        }
+
+    </style>
+
 </head>
+
 <body>
 
-<h1>Review {{ receiver.full_name }}</h1>
+<div class="review-card">
 
-<form method="POST">
-    {% csrf_token %}
+    <h1>⭐ Leave a Review</h1>
 
-    {{ form.as_p }}
+    <p class="subtitle">
 
-    <button type="submit">
-        Submit Review
-    </button>
+        Share your experience with <b>{{ receiver.full_name }}</b>
 
-</form>
+    </p>
 
-<br>
+    <form method="POST">
 
-<a href="{% url 'chat' receiver.id %}">
-    Back to Chat
-</a>
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <button type="submit" class="btn">
+
+            Submit Review
+
+        </button>
+
+    </form>
+
+    <a href="{% url 'chat' receiver.id %}" class="back">
+
+        ← Back to Chat
+
+    </a>
+
+</div>
 
 </body>
+
 </html>

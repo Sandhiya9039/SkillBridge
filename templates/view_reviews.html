@@ -1,57 +1,210 @@
+{% load static %}
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <title>Reviews</title>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Reviews | SkillBridge</title>
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <style>
+
+        body{
+            margin:0;
+            padding:40px;
+            font-family:Arial,Helvetica,sans-serif;
+            background:linear-gradient(135deg,#0b1f4d,#4b0082);
+            color:white;
+            min-height:100vh;
+        }
+
+        .container{
+            max-width:900px;
+            margin:auto;
+        }
+
+        .title-card{
+            background:rgba(255,255,255,.08);
+            backdrop-filter:blur(12px);
+            padding:30px;
+            border-radius:20px;
+            text-align:center;
+            margin-bottom:30px;
+            box-shadow:0 10px 30px rgba(0,0,0,.4);
+        }
+
+        .title-card h1{
+            margin-bottom:10px;
+        }
+
+        .average{
+            display:inline-block;
+            margin-top:10px;
+            background:#2563eb;
+            padding:10px 20px;
+            border-radius:30px;
+            font-size:20px;
+            font-weight:bold;
+        }
+
+        .review-card{
+            background:rgba(255,255,255,.08);
+            backdrop-filter:blur(10px);
+            padding:25px;
+            border-radius:18px;
+            margin-bottom:20px;
+            box-shadow:0 8px 20px rgba(0,0,0,.35);
+            transition:.3s;
+        }
+
+        .review-card:hover{
+            transform:translateY(-5px);
+        }
+
+        .reviewer{
+            color:#60a5fa;
+            font-size:22px;
+            margin-bottom:8px;
+        }
+
+        .rating{
+            color:#facc15;
+            font-size:20px;
+            font-weight:bold;
+            margin-bottom:15px;
+        }
+
+        .review-text{
+            line-height:1.8;
+            color:#f1f5f9;
+            margin-bottom:15px;
+        }
+
+        .date{
+            color:#cbd5e1;
+            font-size:14px;
+        }
+
+        .empty{
+            background:rgba(255,255,255,.08);
+            padding:30px;
+            border-radius:20px;
+            text-align:center;
+        }
+
+        .btn{
+            display:inline-block;
+            margin-top:30px;
+            background:#2563eb;
+            color:white;
+            text-decoration:none;
+            padding:14px 30px;
+            border-radius:10px;
+            transition:.3s;
+            font-weight:bold;
+        }
+
+        .btn:hover{
+            background:#1d4ed8;
+        }
+
+    </style>
+
 </head>
+
 <body>
 
-<h1>{{ profile.full_name }}'s Reviews</h1>
+<div class="container">
 
-{% if average_rating %}
-<h2>
-Average Rating:
-{{ average_rating|floatformat:1 }} ⭐
-</h2>
-{% else %}
-<h2>No ratings yet.</h2>
-{% endif %}
+    <div class="title-card">
 
-<hr>
+        <h1>⭐ {{ profile.full_name }}'s Reviews</h1>
 
-{% if reviews %}
+        {% if average_rating %}
 
-    {% for review in reviews %}
+            <div class="average">
 
-        <h3>{{ review.reviewer.full_name }}</h3>
+                Average Rating:
+                {{ average_rating|floatformat:1 }} ⭐
 
-        <p>
-            Rating:
-            {{ review.rating }}/5 ⭐
-        </p>
+            </div>
 
-        <p>
-            {{ review.review }}
-        </p>
+        {% else %}
 
-        <small>
-            {{ review.created_at }}
-        </small>
+            <div class="average">
 
-        <hr>
+                No Ratings Yet
 
-    {% endfor %}
+            </div>
 
-{% else %}
+        {% endif %}
 
-<p>No reviews available.</p>
+    </div>
 
-{% endif %}
+    {% if reviews %}
 
-<br>
+        {% for review in reviews %}
 
-<a href="{% url 'dashboard' %}">
-Back to Dashboard
-</a>
+            <div class="review-card">
+
+                <div class="reviewer">
+
+                    👤 {{ review.reviewer.full_name }}
+
+                </div>
+
+                <div class="rating">
+
+                    ⭐ {{ review.rating }}/5
+
+                </div>
+
+                <div class="review-text">
+
+                    "{{ review.review }}"
+
+                </div>
+
+                <div class="date">
+
+                    📅 {{ review.created_at }}
+
+                </div>
+
+            </div>
+
+        {% endfor %}
+
+    {% else %}
+
+        <div class="empty">
+
+            <h2>No Reviews Available</h2>
+
+            <p>Be the first to leave a review!</p>
+
+        </div>
+
+    {% endif %}
+
+    <center>
+
+        <a href="{% url 'dashboard' %}" class="btn">
+
+            ← Back to Dashboard
+
+        </a>
+
+    </center>
+
+</div>
 
 </body>
+
 </html>
